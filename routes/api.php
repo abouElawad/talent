@@ -24,9 +24,11 @@ Route::middleware('jwt')->group(function () {
     Route::get('/user', [AuthController::class, 'getUser']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::put('/user', [AuthController::class, 'updateUser']);
+    
+    //users crud
+    Route::get('users',[UserController::class,'index']);
+    Route::patch('users/update/{user}',[UserController::class,'update']);
+    Route::delete('users/delete/{user}',[UserController::class,'destroy']);
+    Route::get('users/{user}',[UserController::class,'show']);
 });
 
-Route::get('users',[UserController::class,'index']);
-Route::patch('users/update/{user}',[UserController::class,'update']);
-Route::delete('users/delete/{user}',[UserController::class,'destroy']);
-Route::get('users/{user}',[UserController::class,'show']);

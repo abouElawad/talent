@@ -11,7 +11,6 @@ use Illuminate\Http\Response as HttpResponse;
 
 class UserRepository implements UserRepositoryInterface
 {
-  use ApiResponseTrait;
 
   public function indexFromRepository()
   {

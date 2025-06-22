@@ -34,6 +34,7 @@ class User extends Authenticatable implements JWTSubject
     protected $hidden = [
         'password',
         'remember_token',
+        'created_at','updated_at',
     ];
 
     /**
@@ -47,6 +48,10 @@ class User extends Authenticatable implements JWTSubject
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function role(){
+      return $this->belongsTo(Role::class);
     }
 
 
