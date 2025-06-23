@@ -1,11 +1,11 @@
 <?php 
 
-namespace App\Repositories;
+namespace App\Http\Repositories;
 
 use Illuminate\Http\Request;
-use App\Interfaces\AuthInterface;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Interfaces\AuthInterface;
 
 class AuthRepository implements AuthInterface
 {

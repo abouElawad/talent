@@ -1,10 +1,10 @@
 <?php 
-namespace App\Services;
+namespace App\Http\Services;
 
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Traits\ApiResponseTrait;
-use App\Interfaces\AuthInterface;
+use App\Http\Interfaces\AuthInterface;
 use App\Models\Role;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Auth;
@@ -88,12 +88,17 @@ class AuthService
   public function getUserFromService(){
      try {
       $user = $this->authInterface->getUserFromRepository();
+
+      $userRole = $user->role->name;
+
+      $user =array_merge($user->toArray(), ['role' => $userRole]);
       if (!$user) {
         return response()->json(['error' => 'User not found'], 404);
       }
-      return response()->json($user);
+      return $this->apiResponse(200,'success',null,$user);
     } catch (JWTException $e) {
-      return response()->json(['error' => 'Failed to fetch user profile'], 500);
+      return $this->apiResponse(200,'failed',$e,null); 
+     
     }
 
   }

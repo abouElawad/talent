@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TestApiController;
 use App\Http\Controllers\UserController;
 
@@ -31,4 +32,11 @@ Route::middleware('jwt')->group(function () {
     Route::delete('users/delete/{user}',[UserController::class,'destroy']);
     Route::get('users/{user}',[UserController::class,'show']);
 });
+
+  //Staff crud
+    Route::get('staff',[StaffController::class,'index']);
+    Route::post('staff',[StaffController::class,'store']);
+    Route::patch('users/update/{user}',[UserController::class,'update']);
+    Route::delete('users/delete/{user}',[UserController::class,'destroy']);
+    Route::get('users/{user}',[UserController::class,'show']);
 

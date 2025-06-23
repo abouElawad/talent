@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Http\Repositories;
 
-use App\Interfaces\UserRepositoryInterface;
+use App\Http\Interfaces\UserRepositoryInterface;
 use Response;
 use App\Models\User;
 use App\Traits\ApiResponseTrait;

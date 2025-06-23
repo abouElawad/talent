@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
-use App\Interfaces\UserRepositoryInterface;
 use Response;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Traits\ApiResponseTrait;
-use App\Repositories\UserRepository;
+use App\Http\Repositories\UserRepository;
+use App\Http\Interfaces\UserRepositoryInterface;
 
 class UserService {
   use ApiResponseTrait;
@@ -39,7 +39,7 @@ class UserService {
   {
 
 
-  $this->apiResponse(200,
+  return $this->apiResponse(200,
                                       'all users',
                                       null,
                                       $this->repository->storeFromRepository($request));
