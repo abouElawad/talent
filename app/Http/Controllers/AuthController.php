@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Services\AuthService;
+use App\Http\Services\AuthService;
 use Illuminate\Http\Request;
 use App\Traits\ApiResponseTrait;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -19,7 +19,6 @@ class AuthController extends Controller
   public function __construct(public AuthService $authService){}
   public function register(Request $request)
   {
-
    return $this->authService->registerFromService($request);
     
   }

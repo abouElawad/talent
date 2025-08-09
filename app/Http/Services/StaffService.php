@@ -1,7 +1,7 @@
 <?php 
 
 
-namespace App\Services;
+namespace App\Http\Services;
 
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -27,13 +27,22 @@ class StaffService
                               $staff);;
 
   }
-  public function showFromService(User $staff) 
+  public function showFromService($staff) 
   {
-    return $this->apiResponse(200,
+    try {
+      return $this->apiResponse(200,
                                   'single staff',
                                   null,
                                   $this->staffRepository->showFromRepository($staff));
 
+    } catch (\Throwable $e) {
+
+      return $this->apiResponse(404,
+                                  'not registered member',
+                                  $e->getMessage(),
+                                  null);
+    }
+    
   }
 
   public function storeFromService(Request $request)
@@ -59,8 +68,22 @@ class StaffService
                                       $this->staffRepository->storeFromRepository($request));
   }
 
-  public function updateFromService(Request $request,User $staff)
+  public function updateFromService(Request $request,$staff)
   {
+     $validation = Validator::make($request->all(),[
+        'name'=>'required|string|min:3',
+        'email'=>'required|email|unique:users,email,'.$staff,
+        'password'=>'current_password:api',
+        'phone'=>'sometimes|string|numeric|unique:users,phone,'.$staff,
+        'role_id'=>'required|exists:roles,id',
+      ]);
+
+      if($validation->fails()){
+        $errors = collect($validation->messages())
+                          ->map(fn($messages) => $messages[0]) ;// get first error message for each field
+        return $this->apiResponse( 400 , null,$errors,null);
+      }
+
 
   return $this->apiResponse(200,
                             'staff updated successfully',
@@ -68,12 +91,23 @@ class StaffService
                             $this->staffRepository->updateFromRepository($request,$staff));
   }
 
-  public function destroyFromService(User $staff)
+  public function destroyFromService($staff)
   {
-    return $this->apiResponse(200,
+
+    try {
+       return $this->apiResponse(200,
                               $staff->name .'has been deleted',
                               null,
                               $this->staffRepository->destroyFromRepository($staff));
+
+    } catch (\Throwable $e) {
+
+      return $this->apiResponse(404,
+                                  'not registered member',
+                                  $e->getMessage(),
+                                  null);
+    }
+   
   }
 
 

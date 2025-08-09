@@ -36,7 +36,7 @@ Route::middleware('jwt')->group(function () {
   //Staff crud
     Route::get('staff',[StaffController::class,'index']);
     Route::post('staff',[StaffController::class,'store']);
-    Route::patch('users/update/{user}',[UserController::class,'update']);
-    Route::delete('users/delete/{user}',[UserController::class,'destroy']);
-    Route::get('users/{user}',[UserController::class,'show']);
+    Route::patch('staff/update/{staff}',[StaffController::class,'update']);
+    Route::delete('staff/delete/{staff}',[StaffController::class,'destroy']);
+    Route::get('staff/{staff}',[StaffController::class,'show']);
 

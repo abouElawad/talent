@@ -8,18 +8,37 @@ class StaffRepository implements StaffInterface
 {
 
   public function indexFromRepository(){
-    $users = User::get();
-    return $users;
+    $staff = User::get();
+    return $staff;
   }
-  public function showFromRepository($staff) {
 
+  public function showFromRepository($staff) {
+    
+    $staff = User::find($staff);
+
+    $staffRole = $staff->role->name;
+    $staff =array_merge($staff->toArray(), ['role' => $staffRole]);
+    return $staff;
   }
   public function storeFromRepository($request){
 
-    $user = User::create($request->all());
-    return $user;
+    $staff = User::create($request->all());
+    return $staff;
   }
-  public function updateFromRepository($request,$staff){}
-  public function destroyFromRepository($staff){}
+  public function updateFromRepository($request,$staff){
+    
+    $staff = User::find($staff);
+    $staffRole = $staff->role->name;
+    $staff->update($request->all());
+    $staff->refresh();
+    
+    return  $staff = array_merge($staff->toArray(), ['role' => $staffRole]);
+
+  }
+  public function destroyFromRepository($staff){
+    $staff = User::find($staff);
+    $staff ->delete();
+    return $staff;
+  }
 
 }

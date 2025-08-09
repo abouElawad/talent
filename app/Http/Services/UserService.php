@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Http\Services;
 
 use Response;
 use App\Models\User;
@@ -28,6 +28,8 @@ class UserService {
   }
   public function showFromService(User $user) 
   {
+    
+    
     return $this->apiResponse(200,
                                   'single user',
                                   null,

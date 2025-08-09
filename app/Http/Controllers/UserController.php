@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Services\UserService;
 use Illuminate\Http\Request;
+use App\Http\Services\UserService;
 use App\Traits\ApiResponseTrait;
 use App\Http\Controllers\Controller;
 
